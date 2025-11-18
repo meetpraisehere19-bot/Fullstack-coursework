@@ -39,6 +39,9 @@ button:not([disabled]):focus{outline:3px solid rgba(59,130,246,0.15);outline-off
 .cart-list li small{color:var(--muted);font-size:13px}
 .checkout{width:100%;margin-top:10px}
 
+/* Add spacing between checkout icon and its label */
+.checkout i{margin-right:8px}
+
 /* Sort buttons spacing to avoid cramped layout */
 .sort-buttons button{margin-right:8px;margin-bottom:8px}
 .foot{text-align:center;margin-top:18px;color:var(--muted)}

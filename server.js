@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const { randomUUID } = require('crypto');
 
 const app = express();
 app.use(cors());
@@ -57,7 +58,8 @@ app.post('/api/checkout', (req, res) => {
   const phoneValid = /^[0-9 +()\-]{7,20}$/.test(phone);
   if (!nameValid || !phoneValid) return res.status(400).json({ message: 'Invalid name or phone' });
   // In a real app you'd create an order. Here return success and echo order id.
-  res.json({ success: true, orderId: 'ORD-' + Date.now() });
+  // Generate a random, hard-to-guess order id using Node's crypto API
+  res.json({ success: true, orderId: 'ORD-' + randomUUID() });
 });
 
 // Serve static frontend

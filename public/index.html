@@ -164,11 +164,23 @@
         customer.phone = '';
       }
 
+      // Sanitize input helpers for customer fields. These keep the model
+      // free of unwanted characters as the user types.
+      function sanitizeName() {
+        customer.name = customer.name.replace(/[^A-Za-z .'\-]/g, '');
+      }
+
+      function sanitizePhone() {
+        // Allow digits, space, plus, parentheses and hyphen
+        customer.phone = customer.phone.replace(/[^0-9 +()\-]/g, '');
+      }
+
       return {
         view, token, loginForm, loginError, login, logout,
         lessons, loading, loadLessons, sortBy, displayed, sortKey, sortDir,
         cart, inCart, addToCart, removeFromCart,
-        customer, nameRegex, phoneRegex, canCheckout, checkout
+        customer, nameRegex, phoneRegex, canCheckout, checkout,
+        sanitizeName, sanitizePhone
       };
     },
     template: `
@@ -238,11 +250,11 @@
               <form class="customer-form" @submit.prevent="checkout" aria-labelledby="customerTitle" novalidate>
                 <div class="field">
                   <label for="customer-name">Name</label>
-                  <input id="customer-name" name="customer-name" v-model="customer.name" placeholder="Full name" required aria-required="true" />
+                  <input id="customer-name" name="customer-name" v-model="customer.name" @input="sanitizeName" placeholder="Full name" required aria-required="true" />
                 </div>
                 <div class="field">
                   <label for="customer-phone">Phone</label>
-                  <input id="customer-phone" name="customer-phone" v-model="customer.phone" placeholder="Phone number" required aria-required="true" />
+                  <input id="customer-phone" name="customer-phone" type="tel" inputmode="numeric" v-model="customer.phone" @input="sanitizePhone" placeholder="Phone number" required aria-required="true" />
                 </div>
                 <button class="checkout" type="submit" :disabled="!canCheckout" :aria-disabled="!canCheckout">
                   <i class="fa fa-credit-card" aria-hidden="true"></i>
