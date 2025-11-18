@@ -32,6 +32,11 @@ button:not([disabled]):focus{outline:3px solid rgba(59,130,246,0.15);outline-off
 .error{color:#ef4444}
 .cart-list{list-style:none;padding:0}
 .cart-list li{margin:6px 0;padding:6px;background:#f9fafb;border-radius:6px}
+
+/* Layout cart item details so the Remove button has breathing room */
+.cart-list li > div{display:flex;align-items:center;gap:12px}
+.cart-list li > strong{display:block;margin-bottom:6px}
+.cart-list li small{color:var(--muted);font-size:13px}
 .checkout{width:100%;margin-top:10px}
 
 /* Sort buttons spacing to avoid cramped layout */
