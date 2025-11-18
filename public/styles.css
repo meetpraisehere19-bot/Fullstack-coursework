@@ -1,5 +1,6 @@
 :root{--accent:#3b82f6;--muted:#666}
 
+/* Base body font styling */
 body{font-family:system-ui, -apple-system, BlinkMacSystemFont, 
 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
 sans-serif;margin:0;background:#f6f8fb;color:#111}
@@ -16,6 +17,7 @@ main{display:flex;gap:16px;margin-top:16px}
 .lesson-header{display:flex;align-items:center;gap:8px}
 .lesson-header i{font-size:22px;color:var(--accent)}
 .actions{margin-top:8px}
+
 /* Base button styles and subtle transitions for hover/focus */
 button{background:var(--accent);color:#fff;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;transition:transform .08s ease,box-shadow .12s ease,filter .12s ease}
 button.small{background:#ef4444;padding:6px 8px;font-size:13px}
@@ -26,9 +28,10 @@ button:not([disabled]):hover{filter:brightness(1.03);transform:translateY(-2px);
 button:not([disabled]):focus{outline:3px solid rgba(59,130,246,0.15);outline-offset:2px}
 .login-card{max-width:420px;margin:60px auto;padding:20px;background:#fff;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
 .field{margin:8px 0}
+
 /* Ensure label and input have clear spacing for readability and accessibility */
 .field label{display:block;margin-bottom:6px;font-weight:600}
-.field input{width:100%;padding:8px;border-radius:6px;border:1px solid #ddd}
+.field input{width:80%;padding:8px;border-radius:6px;border:1px solid #ddd}
 .error{color:#ef4444}
 .cart-list{list-style:none;padding:0}
 .cart-list li{margin:6px 0;padding:6px;background:#f9fafb;border-radius:6px}
