@@ -83,6 +83,8 @@
       // Sorting configuration used by the displayed computed list
       const sortKey = ref('title');
       const sortDir = ref('asc');
+      // Search term for 'search-as-you-type' filtering
+      const searchTerm = ref('');
 
       function sortBy(key) {
         if (sortKey.value === key) sortDir.value = sortDir.value === 'asc' ? 'desc' : 'asc';
@@ -90,7 +92,20 @@
       }
 
       const displayed = computed(() => {
-        const arr = [...lessons.value];
+        // Start with a shallow copy
+        let arr = [...lessons.value];
+
+        // If a search term exists, filter as-you-type (case-insensitive)
+        const q = (searchTerm.value || '').trim().toLowerCase();
+        if (q.length > 0) {
+          arr = arr.filter(l => {
+            // match title or location; can be extended to other fields
+            return (l.title && l.title.toLowerCase().includes(q)) ||
+                   (l.location && l.location.toLowerCase().includes(q));
+          });
+        }
+
+        // Then sort the filtered results
         arr.sort((a,b) => {
           let va = a[sortKey.value];
           let vb = b[sortKey.value];
@@ -198,6 +213,7 @@
         view, token, loginForm, loginError, login, logout,
         lessons, loading, loadLessons, sortBy, displayed, sortKey, sortDir,
         cart, inCart, addToCart, removeFromCart,
+        searchTerm,
         customer, nameRegex, phoneRegex, canCheckout, checkout,
         sanitizeName, sanitizePhone
       };
@@ -240,7 +256,12 @@
 
           <main>
             <aside class="filters">
+              <!-- Search-as-you-type: the list filters as soon as the user types -->
               <h3><i class="fa fa-filter"></i> Sort</h3>
+              <div class="field">
+                <label for="search">Search</label>
+                <input id="search" v-model="searchTerm" placeholder="Type to search lessons..." />
+              </div>
               <div class="sort-buttons">
                 <button @click="sortBy('title')">Title <i class="fa" :class="sortKey==='title' ? (sortDir==='asc'? 'fa-sort-alpha-down' : 'fa-sort-alpha-up') : 'fa-sort'"></i></button>
                 <button @click="sortBy('location')">Location <i class="fa" :class="sortKey==='location' ? (sortDir==='asc'? 'fa-sort-amount-down' : 'fa-sort-amount-up') : 'fa-sort'"></i></button>
