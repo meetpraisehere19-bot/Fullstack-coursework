@@ -86,6 +86,8 @@ app.post('/api/login', (req, res) => {
 });
 
 app.get('/api/lessons', (req, res) => {
+  // GET /api/lessons
+  // Returns the full list of lessons. Used by the frontend to populate the shop.
   res.json(LESSONS);
 });
 
@@ -94,6 +96,21 @@ app.post('/api/adjust-spaces', (req, res) => {
   const { id, delta } = req.body; // delta: -1 for add, +1 for remove
   const lesson = LESSONS.find(l => l.id === id);
   if (!lesson) return res.status(404).json({ message: 'Lesson not found' });
+  if (lesson.spaces + delta < 0) return res.status(400).json({ message: 'Not enough spaces' });
+  lesson.spaces += delta;
+  res.json({ lesson });
+});
+
+// PUT /api/lessons/:id/spaces
+// RESTful endpoint to update the available spaces for a lesson.
+// Body: { delta: number }  (negative to decrement, positive to increment)
+// This is suitable for updating availability after an order is submitted.
+app.put('/api/lessons/:id/spaces', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { delta } = req.body;
+  const lesson = LESSONS.find(l => l.id === id);
+  if (!lesson) return res.status(404).json({ message: 'Lesson not found' });
+  if (typeof delta !== 'number') return res.status(400).json({ message: 'Invalid delta' });
   if (lesson.spaces + delta < 0) return res.status(400).json({ message: 'Not enough spaces' });
   lesson.spaces += delta;
   res.json({ lesson });

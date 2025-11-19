@@ -115,25 +115,25 @@
         return cartIds.value.has(id);
       }
 
-      async function addToCart(lesson) {
+      // Add/remove items to the cart are client-side only now. We reserve
+      // and update availability on the server when the order is submitted
+      // (using the PUT /api/lessons/:id/spaces endpoint).
+      function addToCart(lesson) {
         if (lesson.spaces <= 0) return;
-        // call server to decrement spaces
-        const res = await fetch('/api/adjust-spaces', { method: 'POST', headers: { 'Content-Type':'application/json'}, body: JSON.stringify({ id: lesson.id, delta: -1 }) });
-        if (!res.ok) { alert('Could not add'); return; }
-        const data = await res.json();
-        // update local lesson copy
         const idx = lessons.value.findIndex(l => l.id === lesson.id);
-        if (idx >= 0) lessons.value[idx] = data.lesson;
-        cart.value.push({ id: lesson.id, qty: 1, lesson: data.lesson });
+        if (idx >= 0) {
+          // decrement locally for immediate UI feedback
+          lessons.value[idx].spaces = Math.max(0, lessons.value[idx].spaces - 1);
+          cart.value.push({ id: lesson.id, qty: 1, lesson: { ...lessons.value[idx] } });
+        }
       }
 
-      async function removeFromCart(item) {
-        // return one space
-        const res = await fetch('/api/adjust-spaces', { method: 'POST', headers: { 'Content-Type':'application/json'}, body: JSON.stringify({ id: item.id, delta: +1 }) });
-        if (!res.ok) { alert('Could not remove'); return; }
-        const data = await res.json();
-        const idxL = lessons.value.findIndex(l => l.id === item.id);
-        if (idxL >= 0) lessons.value[idxL] = data.lesson;
+      function removeFromCart(item) {
+        const idx = lessons.value.findIndex(l => l.id === item.id);
+        if (idx >= 0) {
+          // return one space locally
+          lessons.value[idx].spaces = lessons.value[idx].spaces + 1;
+        }
         cart.value = cart.value.filter(i => i.id !== item.id);
       }
 
@@ -148,6 +148,10 @@
         if (!canCheckout.value) return;
         // prompt confirmation
         if (!confirm('Confirm checkout?')) return;
+        // POST /api/checkout
+        // Submits the customer/order information to create the order.
+        // The server returns an order id — after that we call the PUT
+        // endpoint to update lesson spaces based on cart items.
         const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type':'application/json'}, body: JSON.stringify({ name: customer.name, phone: customer.phone, items: cart.value }) });
         if (!res.ok) {
           const err = await res.json();
@@ -156,9 +160,24 @@
         }
         const data = await res.json();
         alert('Order placed! Order ID: ' + data.orderId);
+        // After successful checkout, update server-side spaces using PUT
+        // for each item. We perform these sequentially so the server will
+        // validate availability for each decrement.
+        for (const item of cart.value) {
+          try {
+            const putRes = await fetch(`/api/lessons/${item.id}/spaces`, { method: 'PUT', headers: { 'Content-Type':'application/json'}, body: JSON.stringify({ delta: -item.qty }) });
+            if (!putRes.ok) {
+              const err = await putRes.json();
+              console.error('Failed to update spaces for', item.id, err);
+            }
+          } catch (e) {
+            console.error('Network error updating spaces for', item.id, e);
+          }
+        }
+
         // clear cart
         cart.value = [];
-        // reload lessons to reflect spaces (server already updated when adding/removing but just in case)
+        // reload lessons to reflect authoritative spaces
         await loadLessons();
         customer.name = '';
         customer.phone = '';
