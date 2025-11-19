@@ -64,16 +64,16 @@ const USERS = [
 
 // Create 10 lessons
 let LESSONS = [
-  { id: 1, title: 'Math Explorers', location: 'North', price: 12.5, spaces: 10, icon: 'fa-calculator' },
-  { id: 2, title: 'Science Lab', location: 'East', price: 15.0, spaces: 8, icon: 'fa-flask' },
-  { id: 3, title: 'Creative Writing', location: 'South', price: 10.0, spaces: 12, icon: 'fa-pen-fancy' },
-  { id: 4, title: 'Chess Club', location: 'West', price: 9.5, spaces: 6, icon: 'fa-chess' },
-  { id: 5, title: 'Robotics', location: 'North', price: 18.0, spaces: 5, icon: 'fa-robot' },
-  { id: 6, title: 'Art & Design', location: 'East', price: 11.0, spaces: 9, icon: 'fa-paint-brush' },
-  { id: 7, title: 'Drama Workshop', location: 'South', price: 13.0, spaces: 7, icon: 'fa-theater-masks' },
-  { id: 8, title: 'Music Makers', location: 'West', price: 14.0, spaces: 10, icon: 'fa-music' },
-  { id: 9, title: 'Coding for Kids', location: 'Central', price: 16.0, spaces: 4, icon: 'fa-laptop-code' },
-  { id: 10, title: 'Language Club', location: 'Central', price: 8.0, spaces: 11, icon: 'fa-language' }
+  { id: 1, title: 'Math Explorers', location: 'Room 1', price: 12.5, spaces: 10, icon: 'fa-calculator' },
+  { id: 2, title: 'Science Lab', location: 'Lab 3', price: 15.0, spaces: 8, icon: 'fa-flask' },
+  { id: 3, title: 'Creative Writing', location: 'Studio C', price: 10.0, spaces: 12, icon: 'fa-pen-fancy' },
+  { id: 4, title: 'Chess Club', location: 'Room 2', price: 9.5, spaces: 6, icon: 'fa-chess' },
+  { id: 5, title: 'Robotics', location: 'Lab 2', price: 18.0, spaces: 5, icon: 'fa-robot' },
+  { id: 6, title: 'Art & Design', location: 'Studio A', price: 11.0, spaces: 9, icon: 'fa-paint-brush' },
+  { id: 7, title: 'Drama Workshop', location: 'Theatre 2', price: 13.0, spaces: 7, icon: 'fa-theater-masks' },
+  { id: 8, title: 'Music Makers', location: 'Studio B', price: 14.0, spaces: 10, icon: 'fa-music' },
+  { id: 9, title: 'Coding for Kids', location: 'Lab 1', price: 16.0, spaces: 4, icon: 'fa-laptop-code' },
+  { id: 10, title: 'Language Club', location: 'Theatre 1', price: 8.0, spaces: 11, icon: 'fa-language' }
 ];
 
 // Simple auth endpoint
