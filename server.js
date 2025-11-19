@@ -138,6 +138,12 @@ app.get('/images/:name', (req, res) => {
   });
 });
 
+// existing image (should return 200 and the SVG)
+// http://localhost:3000/images/sample.svg
+
+//  missing image (should return 404 and JSON body)
+//  http://localhost:3000/images/does-not-exist.png
+
 // Serve other static frontend assets
 app.use(express.static(path.join(__dirname, 'public')));
 
