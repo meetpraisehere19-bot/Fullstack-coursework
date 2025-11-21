@@ -47,6 +47,10 @@ button:not([disabled]):focus{outline:3px solid rgba(59,130,246,0.15);outline-off
 /* Add spacing between checkout icon and its label */
 .checkout i{margin-right:8px}
 
+/* Spacing for the Remove All button in the cart */
+.cart-actions{display:flex;justify-content:flex-end;margin-bottom:12px}
+.cart-actions .small{margin:0}
+
 /* Sort buttons spacing to avoid cramped layout */
 .sort-buttons button{margin-right:8px;margin-bottom:8px}
 .foot{text-align:center;margin-top:18px;color:var(--muted)}

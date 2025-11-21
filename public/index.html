@@ -163,6 +163,21 @@
         }
       }
 
+      // Remove all items from the cart, restore local lesson spaces,
+      // and return the user to the lessons view.
+      function removeAll() {
+        if (cart.value.length === 0) return;
+        if (!confirm('Remove all items from the cart?')) return;
+        for (const item of cart.value) {
+          const idx = lessons.value.findIndex(l => l.id === item.id);
+          if (idx >= 0) {
+            lessons.value[idx].spaces = lessons.value[idx].spaces + item.qty;
+          }
+        }
+        cart.value = [];
+        page.value = 'lessons';
+      }
+
       // Checkout form and simple validation patterns
       const customer = reactive({ name: '', phone: '' });
       // Name: letters and spaces only (minimum 2 chars)
@@ -227,7 +242,7 @@
       return {
         view, token, loginForm, loginError, login, logout,
         lessons, loading, loadLessons, sortBy, displayed, sortKey, sortDir,
-        cart, inCart, addToCart, removeFromCart, page,
+        cart, inCart, addToCart, removeFromCart, removeAll, page,
         searchTerm,
         customer, nameRegex, phoneRegex, canCheckout, checkout,
         sanitizeName, sanitizePhone
@@ -322,6 +337,9 @@
 
             <section v-else-if="page==='cart'" class="shop">
               <h2>Your Cart</h2>
+              <div class="cart-actions" v-if="cart.length>0">
+                <button class="small" @click="removeAll" aria-label="Remove all items from cart"><i class="fa fa-trash" aria-hidden="true"></i> Remove All</button>
+              </div>
               <div v-if="cart.length===0">No items in cart</div>
               <div class="lessons-grid">
                 <article class="lesson" v-for="item in cart" :key="item.id">
