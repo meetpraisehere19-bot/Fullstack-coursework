@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "29e3b1d7-5518-45d6-a073-e61f534419a5",
+		"name": "VueApp_Demo",
+		"description": "Just keeping the Postman requests for the Vue App here.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50449876",
+		"_collection_link": "https://meetpraisehere19-bot-6019945.postman.co/workspace/Kales-Team's-Workspace~9f1855f7-8319-470d-8836-fab76637d09f/collection/50449876-29e3b1d7-5518-45d6-a073-e61f534419a5?action=share&source=collection_link&creator=50449876"
+	},
+	"item": [
+		{
+			"name": "get_lessons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/lessons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"lessons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post_orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"name": "cache-control",
+						"type": "text"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "<calculated when request is sent>",
+						"name": "postman-token",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/plain",
+						"name": "content-type",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "<calculated when request is sent>",
+						"name": "content-length",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": "<calculated when request is sent>",
+						"name": "host",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.39.1",
+						"name": "user-agent",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"name": "accept",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"name": "accept-encoding",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"name": "connection",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerName\": \"Alice Johnson\",\r\n  \"phone\": \"07123456789\",\r\n  \"items\": [\r\n    { \"id\": 1, \"qty\": 1 },\r\n    { \"id\": 5, \"qty\": 1 }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put_updateLessons",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Cache-Control",
+						"value": "no-cache",
+						"name": "cache-control",
+						"type": "text"
+					},
+					{
+						"key": "Postman-Token",
+						"value": "<calculated when request is sent>",
+						"name": "postman-token",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "text/plain",
+						"name": "content-type",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Length",
+						"value": "<calculated when request is sent>",
+						"name": "content-length",
+						"type": "text"
+					},
+					{
+						"key": "Host",
+						"value": "<calculated when request is sent>",
+						"name": "host",
+						"type": "text"
+					},
+					{
+						"key": "User-Agent",
+						"value": "PostmanRuntime/7.39.1",
+						"name": "user-agent",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"name": "accept",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "gzip, deflate, br",
+						"name": "accept-encoding",
+						"type": "text"
+					},
+					{
+						"key": "Connection",
+						"value": "keep-alive",
+						"name": "connection",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"spaces\": 2,\r\n  \"price\": 9.99,\r\n  \"location\": \"Updated Studio Room\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/lessons/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"lessons",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
